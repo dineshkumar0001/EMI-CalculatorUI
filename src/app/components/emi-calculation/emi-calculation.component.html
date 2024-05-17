@@ -1,1 +1,61 @@
-<p>emi-calculation works!</p>
+<div class="container">
+  <div class="row" id="tiles-container">
+    <div class="col-md-4" *ngFor="let tile of loans">
+      <div class="tile" [style.background-color]="tile.tileColor">
+        <div class="tile-header">{{ tile.loanType }}</div>
+        <div>Loan Amount: {{ tile.loanAmount }}</div>
+        <div>Interest Rate: {{ tile.interestRate }}%</div>
+        <div>Loan Tenure: {{ tile.loanTermMonths }} months</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3" (click)="openModal()">Add</button>
+</div>
+
+<ng-template #tileTemplate>
+  <div class="tile">
+    <div class="tile-header">{{ newLoan.loanType }}</div>
+    <div>Loan Amount: {{ newLoan.loanAmount }}</div>
+    <div>Interest Rate: {{ newLoan.interestRate }}%</div>
+    <div>Loan Tenure: {{ newLoan.loanTenure }} months</div>
+  </div>
+</ng-template>
+
+<!-- Modal for input -->
+<ng-template #inputModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Enter Loan Details</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="addLoan()">
+      <div class="mb-3">
+        <label for="loanTypeSelect" class="form-label">Loan Type</label>
+        <select class="form-select" id="loanTypeSelect" [(ngModel)]="newLoan.loanType" name="loanType">
+          <option value="home">Home</option>
+          <option value="car">Car</option>
+          <option value="personal">Personal Loan</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="loanAmountRange" class="form-label">Loan Amount</label>
+        <input type="range" class="form-range" min="1000" max="100000" step="1000" id="loanAmountRange" [(ngModel)]="newLoan.loanAmount" name="loanAmount">
+        <output for="loanAmountRange">{{ newLoan.loanAmount | currency }}</output>
+      </div>
+      <div class="mb-3">
+        <label for="interestRateRange" class="form-label">Interest Rate (%)</label>
+        <input type="range" class="form-range" min="1" max="20" step="0.1" id="interestRateRange" [(ngModel)]="newLoan.interestRate" name="interestRate">
+        <output for="interestRateRange">{{ newLoan.interestRate }}%</output>
+      </div>
+      <div class="mb-3">
+        <label for="loanTenureRange" class="form-label">Loan Tenure (months)</label>
+        <input type="range" class="form-range" min="6" max="120" step="1" id="loanTenureRange" [(ngModel)]="newLoan.loanTenure" name="loanTenure">
+        <output for="loanTenureRange">{{ newLoan.loanTenure }} months</output>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+        <button type="submit" class="btn btn-primary">Add Loan</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

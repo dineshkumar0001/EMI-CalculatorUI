@@ -1,0 +1,13 @@
+/* colorful-tiles.component.css */
+.tile {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .tile-header {
+    font-weight: bold;
+  }
+  

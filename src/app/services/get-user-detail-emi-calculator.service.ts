@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-//import { Observable } from 'rxjs';
-//import { HttpClient } from '@angular/common/http';
-//import { PercentPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+// import { PercentPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ import { Injectable } from '@angular/core';
 export class GetUserDetailEmiCalculatorService {
 
 
- // constructor(private http: HttpClient) { }
+ constructor(private http: HttpClient) { }
 
- constructor( ) { }
-  baseApiUrl: string = "https://localhost:44381";
+//  constructor( ) { }
+  baseApiUrl: string = "https://localhost:44324";
   // getAllPages(): Observable<Pages[]> {
   //   return this.http.get<Pages[]>(this.baseApiUrl + '/api/pages');
   // }
@@ -25,11 +25,18 @@ export class GetUserDetailEmiCalculatorService {
   // //  return this.http.post(this.baseApiUrl + '/api/pages', formData);
   // //}
 
+  createLoan(data: any): Observable<any> {
+    return this.http.post<any>(this.baseApiUrl + '/api/EmiCalculatorData', data);
+  }
+  getAllUserLoanDetail(): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/api/EmiCalculatorData' );
+  }
 
 
-  // getPage(id: number): Observable<Pages> {
-  //   return this.http.get<Pages>(this.baseApiUrl + '/api/pages/' + id);
-  // }
+
+  getLoanDetailByUserId(userId: number): Observable<any> {
+    return this.http.get<any>(this.baseApiUrl + '/api/EmiCalculatorData/' + userId);
+  }
 
   // updatePage(id: number, updatepagerequest: PageModel): Observable<PageModel> {
   //   return this.http.put<PageModel>(this.baseApiUrl + '/api/pages/' + id, updatepagerequest);
